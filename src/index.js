@@ -89,13 +89,22 @@ function displayYear(evt){
     const select = document.getElementById('yearList');
     const value = select.options[select.selectedIndex].value;
     const displayDiv = document.getElementById("yearResult")
-    console.log(value);
     fetch(`http://ergast.com/api/f1/${value}.json`)
     .then(resp => resp.json())
     .then(resp =>{
         //clear the div
         displayDiv.innerHTML = ``
+        
+        //fetching driver standings
+        fetch(`http://ergast.com/api/f1/${value}/driverStandings.json`)
+        .then(resp=> resp.json())
+        .then(standings =>{
+            console.log(standings.MRData.StandingsTable.StandingsLists)
 
+        })
+        const h2stats = document.createElement('h2')
+        h2stats.textContent = `The resutls for the ${value} season`
+        displayDiv.appendChild(h2stats)
         //shows what season you are looking at
         const h2 = document.createElement('h2')
         h2.textContent = `The races for the ${value} season `
@@ -103,9 +112,10 @@ function displayYear(evt){
         
         const races = resp.MRData.RaceTable.Races
         races.forEach(race => {
-            console.log(race)
             const h3 = document.createElement('h3')
-            h3.innerHTML = `${race.raceName}`
+            h3.innerHTML = `<a href='${race.url}'>${race.raceName}</a>`
+            //h3.href = `${race.url}`
+            //<h1><a href="#">heading</a></h1>
             h3.className = 'RaceList'
             //cursor: pointer;
             displayDiv.appendChild(h3)
