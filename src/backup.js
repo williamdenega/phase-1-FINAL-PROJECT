@@ -1,34 +1,9 @@
- console.log('hello kitty')
-document.getElementById('yearTAB').addEventListener(`click`,console.log(document.getElementById('yearTAB')))
-document.getElementById('driverTAB').addEventListener('click',console.log('hello'))
 
 
-const tabs = document.querySelectorAll('[data-tab-target]')
-const tabContent = document.querySelectorAll('[data-tab-content')
+document.addEventListener("DOMContentLoaded", init)
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () =>{
-        
-        const target = document.querySelector(tab.dataset.tabTarget)
-        tabContent.forEach(tabContent => {
-            tabContent.classList.remove('active')
-        })
-        tabs.forEach(tab => {
-            tab.classList.remove('active')
-        })
-        tab.classList.add('active')
-        target.classList.add('active')
-
-        if(tab.id == 'yearTAB') yearInit()
-        else if(tab.id == 'driverTAB') driverInit()
-        else if(tab.id == 'teamTAB') teamInit()
-    })
-})
-
-
-
-function yearInit(){
-   
+function init(){
+    console.log('hello kitty')
     fetch('http://ergast.com/api/f1/seasons.json')
     .then(res => res.json())
     .then(resp => {
@@ -38,18 +13,9 @@ function yearInit(){
     
 }
 
-function driverInit(){
-    console.log('driver')
-
-}
-
-
-function teamInit(){
-    console.log('team')
-
-}
 
 function loadYears(total){
+    console.log(total)
     const requestOptions ={
         method: 'GET',
         redirect: 'follow'

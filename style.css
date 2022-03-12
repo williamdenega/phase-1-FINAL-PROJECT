@@ -1,0 +1,91 @@
+body{
+    
+    background: rgba(209, 61, 61, 0.815);
+    background-attachment: fixed;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+
+.wrapper{
+    margin: 0 auto;
+
+
+    width: 80%;
+   
+    background: rgb(233, 231, 231);
+
+
+}
+#year{
+    background: rgb(248, 59, 59);
+    padding: 40px;
+}
+
+#driver{
+    background: rgba(153, 65, 65, 0.726);
+    padding: 40px;
+}
+
+
+
+#team{
+    background: yellow;
+    padding: 40px;
+}
+
+.tabs{
+    display: flex;
+    justify-content: space-around;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid black;
+}
+
+.tab{
+    cursor: pointer;
+    padding-left: 15.15%;
+    padding-right: 15.15%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.tab.active {
+    background-color: #CCC;
+}
+
+.tab:hover {
+    background-color: #CCC;
+}
+h1.hello{
+    text-align: center;
+    
+}
+.content{
+    margin: 0 auto;
+    padding: 20px;
+    background: rgb(70, 129, 122);
+    width: 80%;
+  
+
+}
+
+[data-tab-content] {
+    display: none;
+}
+
+.active[data-tab-content]{
+
+    display:block
+}
+
+#title{
+    text-align:  center;
+}
+
+#home{
+  text-align: center;
+  padding: 50px;
+}
+
+.RaceList{ cursor: pointer; }

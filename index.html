@@ -1,44 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <!-- <link rel="stylesheet" href="style.css"> -->
-        <title>F1 Stats </title>
-        <script type="text/javascript" src="src/index.js"></script>
+    
+  <head>
+    <title>My Website</title> 
+    <script src="src/index.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+  
+  </head>
+  <body>
+    
+    <header id="title">
+        <h1>F1 Stats</h1>
+    </header>
+
+    
+    <div class="wrapper">
+
+      <ul class='tabs'>
+          <li data-tab-target="#year" class="tab" id="yearTAB">SEASON</li>
+          <li data-tab-target="#driver"class="tab" id="driverTAB">DRIVER</li>
+          <li data-tab-target="#team"class="tab" id="teamTAB">TEAM</li>
+      </ul>
+
+      <div class="tab-content">
+        <div id='home' data-tab-content class="active">
+            <h2>WELCOME TO F1 STATS</h2>
+            <h4>please select a season, driver, or team</h4>
+
+        </div>
         
-    </head>
-    <body>
-        <div class="wrapper">
-
-        
-            <header>
-                <h1>F1 Stats</h1>
-            </header>
-            <main>
-
-             
-                <div id="yearSelector">
-                    <h2>SELECT A FORMULA 1 SEASON</h2>
-                    <form action="/action_page.php"   id="season-form" >
-                        <label for="years">Choose A Year: </label>
-                        <select name="years" id="yearList">                  
-                        </select>
-                        <input type="submit"/>
-                    </form>
-                </div> 
-                <div id="yearResult">
+        <div id='year' data-tab-content >
+            <div id="yearSelector">
+                <h2>SELECT A FORMULA 1 SEASON</h2>
+                <form action="/action_page.php"   id="season-form" >
+                    <label for="years">Choose A Year: </label>
+                    <select name="years" id="yearList">                  
+                    </select>
+                    <input type="submit"/>
+                </form>
+            </div> 
+            <div id="yearResult">
 
 
-                </div> 
-                
-            </main>
-            <footer>
-                <p>Made by William Denega</p>
-            </footer>
+            </div> 
+
         </div>
 
-    </body>
+        <div  id='driver' data-tab-content>
+            <div id ='driverSelector'>
+                <h2>SELECT A FORMULA 1 DRIVER</h2>
+                <p>leclerc 2022 WDC</p>
+
+            </div>
 
 
+        </div>
 
+        <div  id='team' data-tab-content>
+            <h2>SELECT A FORMULA 1 TEAM</h2>
+            <p>ferarri constructor champs 2022</p>
+
+        </div>
+
+      </div>
+
+
+    </div>
+    
+
+
+  </body>
 </html>
