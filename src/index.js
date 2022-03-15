@@ -38,7 +38,7 @@ tabs.forEach(tab => {
 
 
 function yearInit(){
-   
+   //fetching the total amount of years 
     fetch('http://ergast.com/api/f1/seasons.json')
     .then(res => res.json())
     .then(resp => {
