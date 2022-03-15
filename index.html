@@ -32,14 +32,29 @@
         <div id='year' data-tab-content >
             <div id="yearSelector">
                 <h2>SELECT A FORMULA 1 SEASON</h2>
+                <span style="display: inline;">
                 <form action="/action_page.php"   id="season-form" >
                     <label for="years">Choose A Year: </label>
-                    <select name="years" id="yearList">                  
+                    <select name="years" id="yearList" > 
+                    <option value="none" selected disabled hidden>Select a Year</option>      
                     </select>
+                       
                     <input type="submit"/>
+                    <button type="reset" id='reset' style="float: right;">clear</button>
                 </form>
+              
+
+
+                </span>
+
             </div> 
             <div id="yearResult">
+
+              <div id="driverList">
+
+
+              </div>
+              <div id="raceList"></div>
 
 
             </div> 
@@ -50,6 +65,12 @@
             <div id ='driverSelector'>
                 <h2>SELECT A FORMULA 1 DRIVER</h2>
                 <p>leclerc 2022 WDC</p>
+                <ul>
+                  <li>this
+                  </li>
+                  <li>is</li>
+                  <li>a list</li>
+                </ul>
 
             </div>
 

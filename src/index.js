@@ -1,6 +1,6 @@
  console.log('hello kitty')
-document.getElementById('yearTAB').addEventListener(`click`,console.log(document.getElementById('yearTAB')))
-document.getElementById('driverTAB').addEventListener('click',console.log('hello'))
+//document.getElementById('yearTAB').addEventListener(`click`,console.log(document.getElementById('yearTAB')))
+//document.getElementById('driverTAB').addEventListener('click',console.log('hello'))
 
 
 const tabs = document.querySelectorAll('[data-tab-target]')
@@ -50,17 +50,9 @@ function teamInit(){
 }
 
 function loadYears(total){
-    const requestOptions ={
-        method: 'GET',
-        redirect: 'follow'
-    }
-    fetch(`http://ergast.com/api/f1/seasons.json?limit=${total}`,requestOptions)
+    fetch(`http://ergast.com/api/f1/seasons.json?limit=${total}`)
     .then(resp => resp.json())
     .then(years => years.MRData.SeasonTable.Seasons.forEach(year => {
-        // fetch(`http://ergast.com/api/f1/${year.season}.json`)
-        // .then(res => res.json())
-        // .then(year =>console.log(year))
-        //http://ergast.com/api/f1/2016/driverStandings
         let option = document.createElement('option')
         option.innerHTML = `
             ${year.season}
@@ -73,12 +65,7 @@ function loadYears(total){
         
     
     }))
-    
     .catch(error => console.log('error',error))
-    let p = document.createElement('p')
-
-    p.innerHTML = `Hello test`
-    document.getElementById('yearList').appendChild(p)
     document.getElementById('season-form').addEventListener('submit',(e)=>displayYear(e))
 }
 
@@ -88,38 +75,63 @@ function displayYear(evt){
     evt.preventDefault()
     const select = document.getElementById('yearList');
     const value = select.options[select.selectedIndex].value;
-    const displayDiv = document.getElementById("yearResult")
+
+    const driversDiv = document.getElementById('driverList')
+    const raceDiv = document.getElementById('raceList')
+
+
     fetch(`http://ergast.com/api/f1/${value}.json`)
     .then(resp => resp.json())
     .then(resp =>{
-        //clear the div
-        displayDiv.innerHTML = ``
+        const races = resp.MRData.RaceTable.Races
+
+        //clear the divs
+        driversDiv.textContent = ``
+        raceDiv.textContent= ``
         
+
+        //shows the driver standings in that year
+        const h2stats = document.createElement('h2')
+        h2stats.textContent = `The Driver Standings for the ${value} season`
+        h2stats.style.textAlign = 'center'
+        driversDiv.appendChild(h2stats)
+
+
         //fetching driver standings
         fetch(`http://ergast.com/api/f1/${value}/driverStandings.json`)
         .then(resp=> resp.json())
         .then(standings =>{
-            console.log(standings.MRData.StandingsTable.StandingsLists)
+            standings.MRData.StandingsTable.StandingsLists[0].DriverStandings.forEach(driver =>{
 
-        })
-        const h2stats = document.createElement('h2')
-        h2stats.textContent = `The resutls for the ${value} season`
-        displayDiv.appendChild(h2stats)
-        //shows what season you are looking at
-        const h2 = document.createElement('h2')
-        h2.textContent = `The races for the ${value} season `
-        displayDiv.appendChild(h2)
+                const h3driver = document.createElement('h3')
+                h3driver.innerHTML = `${driver.position}. <a href='${driver.Driver.url}'>${driver.Driver.givenName} ${driver.Driver.familyName}</a> Wins:${driver.wins}  Points:${driver.points} `
+                
+                driversDiv.appendChild(h3driver)
+
+            })
+        }).then(resp=>{
+
         
-        const races = resp.MRData.RaceTable.Races
-        races.forEach(race => {
-            const h3 = document.createElement('h3')
-            h3.innerHTML = `<a href='${race.url}'>${race.raceName}</a>`
-            //h3.href = `${race.url}`
-            //<h1><a href="#">heading</a></h1>
-            h3.className = 'RaceList'
-            //cursor: pointer;
-            displayDiv.appendChild(h3)
-        })
+            //shows what season you are looking at
+                const h2 = document.createElement('h2')
+                h2.textContent = `The races for the ${value} season `
+                h2.style.textAlign = 'center'
+                raceDiv.appendChild(h2)
+        
+            races.forEach(race => {
+                const h3 = document.createElement('h3')
+                h3.innerHTML = `${race.round}. <a href='${race.url}'>${race.raceName}</a>  Date: ${race.date}`
+                h3.className = 'RaceList'
+                raceDiv.appendChild(h3)
+            })
+            document.getElementById('reset').addEventListener('click', ()=>{
+                driversDiv.textContent = ``
+                raceDiv.textContent= ``    
+            })
+        }
+        )
+
+
         //console.log(races)
         
         
