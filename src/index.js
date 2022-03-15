@@ -72,6 +72,10 @@ function loadYears(total){
 
 
 function displayYear(evt){
+    document.getElementById('reset').addEventListener('click', ()=>{
+        driversDiv.textContent = ``
+        raceDiv.textContent= ``    
+    })
     evt.preventDefault()
     const select = document.getElementById('yearList');
     const value = select.options[select.selectedIndex].value;
@@ -91,10 +95,10 @@ function displayYear(evt){
         
 
         //shows the driver standings in that year
-        const h2stats = document.createElement('h2')
-        h2stats.textContent = `The Driver Standings for the ${value} season`
-        h2stats.style.textAlign = 'center'
-        driversDiv.appendChild(h2stats)
+        const h1stats = document.createElement('h1')
+        h1stats.textContent = `The Driver Standings for the ${value} season`
+        h1stats.style.textAlign = 'center'
+        driversDiv.appendChild(h1stats)
 
 
         //fetching driver standings
@@ -103,38 +107,42 @@ function displayYear(evt){
         .then(standings =>{
             standings.MRData.StandingsTable.StandingsLists[0].DriverStandings.forEach(driver =>{
 
-                const h3driver = document.createElement('h3')
-                h3driver.innerHTML = `${driver.position}. <a href='${driver.Driver.url}'>${driver.Driver.givenName} ${driver.Driver.familyName}</a> Wins:${driver.wins}  Points:${driver.points} `
+                const driverDiv = document.createElement('div')
+                driverDiv.id = 'eachDriver'
                 
-                driversDiv.appendChild(h3driver)
+                const h2 =document.createElement('h2')
+                h2.innerHTML = `${driver.position}. <a href='${driver.Driver.url}'> ${driver.Driver.givenName} ${driver.Driver.familyName}</a>`
+                const h3 = document.createElement('h4')
+                h3.innerHTML= `|| Wins: ${driver.wins}  ||  Points: ${driver.points} ||`
+                driverDiv.appendChild(h2)
+                driverDiv.appendChild(h3)
+                driversDiv.appendChild(driverDiv)
 
             })
         }).then(resp=>{
 
         
             //shows what season you are looking at
-                const h2 = document.createElement('h2')
-                h2.textContent = `The races for the ${value} season `
-                h2.style.textAlign = 'center'
-                raceDiv.appendChild(h2)
+
+                const h1 = document.createElement('h1')
+                h1.textContent = `The races for the ${value} season `
+                h1.style.textAlign = 'center'
+                raceDiv.appendChild(h1)
         
             races.forEach(race => {
-                const h3 = document.createElement('h3')
-                h3.innerHTML = `${race.round}. <a href='${race.url}'>${race.raceName}</a>  Date: ${race.date}`
-                h3.className = 'RaceList'
-                raceDiv.appendChild(h3)
+                const eachRaceDiv = document.createElement('div')
+                eachRaceDiv.id = `eachRace` 
+                const h3 = document.createElement('h2')
+                const h4 = document.createElement('h4')
+                h3.innerHTML = `${race.round}. <a href='${race.url}'>${race.raceName}</a>  `
+                h4.innerHTML = `|| Location: ${race.Circuit.Location.locality} , ${race.Circuit.Location.country} ||`
+                //h3.className = 'RaceList'
+                eachRaceDiv.appendChild(h3)
+                eachRaceDiv.appendChild(h4)
+                raceDiv.appendChild(eachRaceDiv)
             })
-            document.getElementById('reset').addEventListener('click', ()=>{
-                driversDiv.textContent = ``
-                raceDiv.textContent= ``    
-            })
-        }
-        )
-
-
-        //console.log(races)
-        
-        
+            return
+        })   
     })
 
 }
