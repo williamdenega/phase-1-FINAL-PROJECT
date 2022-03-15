@@ -1,28 +1,38 @@
  console.log('hello kitty')
-//document.getElementById('yearTAB').addEventListener(`click`,console.log(document.getElementById('yearTAB')))
-//document.getElementById('driverTAB').addEventListener('click',console.log('hello'))
+document.addEventListener("DOMContentLoaded",yearInit())
+//document.addEventListener("DOMContentLoaded",driverInit())
+//document.addEventListener("DOMContentLoaded",teamInit())
 
 
 const tabs = document.querySelectorAll('[data-tab-target]')
 const tabContent = document.querySelectorAll('[data-tab-content')
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () =>{
-        
-        const target = document.querySelector(tab.dataset.tabTarget)
-        tabContent.forEach(tabContent => {
-            tabContent.classList.remove('active')
-        })
-        tabs.forEach(tab => {
-            tab.classList.remove('active')
-        })
-        tab.classList.add('active')
-        target.classList.add('active')
 
-        if(tab.id == 'yearTAB') yearInit()
-        else if(tab.id == 'driverTAB') driverInit()
-        else if(tab.id == 'teamTAB') teamInit()
+
+tabs.forEach(tab => {
+        tab.addEventListener('click', () =>{
+            if(tab.id === 'driverTAB'){
+                driverInit()
+            }    
+            if(tab.id === 'teamTAB'){
+                teamInit()
+            }
+            if(tab.id == 'yearTAB'){
+
+            }
+
+            const target = document.querySelector(tab.dataset.tabTarget)
+            tabContent.forEach(tabContent => {
+                tabContent.classList.remove('active')
+            })
+            tabs.forEach(tab => {
+                tab.classList.remove('active')
+            })
+            tab.classList.add('active')
+            target.classList.add('active')
     })
+
+    
 })
 
 
@@ -34,26 +44,23 @@ function yearInit(){
     .then(resp => {
         let total = resp.MRData.total
         loadYears(total)
-    })
-    
+    }).catch(error => console.error('error in yearInit() ' + error))
 }
 
 function driverInit(){
-    console.log('driver')
-
+   console.log('inside driverINit')
 }
 
 
 function teamInit(){
-    console.log('team')
-
+    console.log('inside teamInit')
 }
 
 function loadYears(total){
     fetch(`http://ergast.com/api/f1/seasons.json?limit=${total}`)
     .then(resp => resp.json())
     .then(years => years.MRData.SeasonTable.Seasons.forEach(year => {
-        let option = document.createElement('option')
+        const option = document.createElement('option')
         option.innerHTML = `
             ${year.season}
 
@@ -65,13 +72,14 @@ function loadYears(total){
         
     
     }))
-    .catch(error => console.log('error',error))
+    .catch(error =>console.error('error',error))
     document.getElementById('season-form').addEventListener('submit',(e)=>displayYear(e))
 }
 
 
 
 function displayYear(evt){
+    //add event listener to the reset button
     document.getElementById('reset').addEventListener('click', ()=>{
         driversDiv.textContent = ``
         raceDiv.textContent= ``    
@@ -96,7 +104,7 @@ function displayYear(evt){
 
         //shows the driver standings in that year
         const h1stats = document.createElement('h1')
-        h1stats.textContent = `The Driver Standings for the ${value} season`
+        h1stats.textContent = `Driver Standings For The ${value} Season`
         h1stats.style.textAlign = 'center'
         driversDiv.appendChild(h1stats)
 
@@ -125,7 +133,7 @@ function displayYear(evt){
             //shows what season you are looking at
 
                 const h1 = document.createElement('h1')
-                h1.textContent = `The races for the ${value} season `
+                h1.textContent = `Races During The ${value} Season `
                 h1.style.textAlign = 'center'
                 raceDiv.appendChild(h1)
         
@@ -141,8 +149,10 @@ function displayYear(evt){
                 eachRaceDiv.appendChild(h4)
                 raceDiv.appendChild(eachRaceDiv)
             })
-            return
-        })   
+            
+        })
+        .catch(error => console.error('error'+error))
     })
+    .catch(error => console.error('Oh NO! '+error))
 
 }
