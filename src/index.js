@@ -8,7 +8,7 @@ const tabs = document.querySelectorAll('[data-tab-target]')
 const tabContent = document.querySelectorAll('[data-tab-content')
 
 
-
+//used to display the tab when click
 tabs.forEach(tab => {
         tab.addEventListener('click', () =>{
             if(tab.id === 'driverTAB'){
@@ -47,15 +47,17 @@ function yearInit(){
     }).catch(error => console.error('error in yearInit() ' + error))
 }
 
+//NOT DONE
 function driverInit(){
    console.log('inside driverINit')
 }
 
-
+//NOT DONE
 function teamInit(){
     console.log('inside teamInit')
 }
 
+//fetch for all the years
 function loadYears(total){
     fetch(`http://ergast.com/api/f1/seasons.json?limit=${total}`)
     .then(resp => resp.json())
@@ -72,7 +74,8 @@ function loadYears(total){
         
     
     }))
-    .catch(error =>console.error('error',error))
+    .catch(error =>console.error('error in loading years fetch ',error))
+    //add event listener for season-form
     document.getElementById('season-form').addEventListener('submit',(e)=>displayYear(e))
 }
 
@@ -91,7 +94,7 @@ function displayYear(evt){
     const driversDiv = document.getElementById('driverList')
     const raceDiv = document.getElementById('raceList')
 
-
+    //fetch for the year selected
     fetch(`http://ergast.com/api/f1/${value}.json`)
     .then(resp => resp.json())
     .then(resp =>{
@@ -151,8 +154,10 @@ function displayYear(evt){
             })
             
         })
-        .catch(error => console.error('error'+error))
+        //catch for driver standings fetch
+        .catch(error => console.error('error in driver standings fetch '+error))
     })
-    .catch(error => console.error('Oh NO! '+error))
+    //catch for the year fetch
+    .catch(error => console.error('Oh NO! Errror in year fetch '+error))
 
 }
