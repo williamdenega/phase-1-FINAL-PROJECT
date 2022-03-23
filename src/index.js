@@ -47,15 +47,15 @@ function yearInit(){
     }).catch(error => console.error('error in yearInit() ' + error))
 }
 
-//NOT DONE
-function driverInit(){
-   console.log('inside driverINit')
-}
+//NOT DONE (DRIVER TAB)
+// function driverInit(){
+//    console.log('inside driverINit')
+// }
 
-//NOT DONE
-function teamInit(){
-    console.log('inside teamInit')
-}
+//NOT DONE  (TEAM TAB)
+// function teamInit(){
+//     console.log('inside teamInit')
+// }
 
 //fetch for all the years
 function loadYears(total){
