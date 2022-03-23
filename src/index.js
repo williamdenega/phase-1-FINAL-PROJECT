@@ -119,7 +119,7 @@ function displayYear(evt){
                 driverDiv.id = 'eachDriver'
                 
                 const h2 =document.createElement('h2')
-                h2.innerHTML = `${driver.position}. <a href='${driver.Driver.url}'> ${driver.Driver.givenName} ${driver.Driver.familyName}</a>`
+                h2.innerHTML = `${driver.position}. <a href='${driver.Driver.url}' target="_blank"> ${driver.Driver.givenName} ${driver.Driver.familyName}</a>`
                 const h3 = document.createElement('h4')
                 h3.innerHTML= `|| Wins: ${driver.wins}  ||  Points: ${driver.points} ||`
                 driverDiv.appendChild(h2)
@@ -128,8 +128,8 @@ function displayYear(evt){
 
             })
         }).then(resp=>{
-
-        
+            //use a .then() to make sure the top section (Driver info) loads before the bottom section(tracks info)??
+            
             //shows what season you are looking at
 
                 const h1 = document.createElement('h1')
@@ -142,7 +142,7 @@ function displayYear(evt){
                 eachRaceDiv.id = `eachRace` 
                 const h3 = document.createElement('h2')
                 const h4 = document.createElement('h4')
-                h3.innerHTML = `${race.round}. <a href='${race.url}'>${race.raceName}</a>  `
+                h3.innerHTML = `${race.round}. <a href='${race.url}' target="_blank">${race.raceName}</a>  `
                 h4.innerHTML = `|| Location: ${race.Circuit.Location.locality} , ${race.Circuit.Location.country} ||`
                 //h3.className = 'RaceList'
                 eachRaceDiv.appendChild(h3)
